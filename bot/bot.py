@@ -30,10 +30,10 @@ def download(bot, update):
         return
 
     link = update.message.parse_entity(update.message.entities[1])
-    picture = download_picture(link)
+    picture, author = download_picture(link)
 
     if picture:
-        bot.sendPhoto(chat_id=update.message.chat_id, photo=picture)
+        bot.sendPhoto(chat_id=update.message.chat_id, photo=picture, caption=f'via @{author}')
         logging.info(f'Sending {picture} to {update.effective_user.name}.')
     else:
         bot.sendMessage(chat_id=update.message.chat_id,
